@@ -1,24 +1,21 @@
 #include <Arduino.h>
 
-#define PIN_LED 2
-#define PIN_BUTTON 13
+#define LED 33
+#define LED_2 13
 
 void setup()
 {
-
-  pinMode(PIN_LED, OUTPUT);
-  pinMode(PIN_BUTTON, INPUT);
+  // put your setup code here, to run once:
+  pinMode(LED, OUTPUT);
+  pinMode(LED_2, OUTPUT);
 }
 
 void loop()
 {
-
-  if (digitalRead(PIN_BUTTON) == LOW)
-  {
-    digitalWrite(PIN_LED, HIGH);
-  }
-  else
-  {
-    digitalWrite(PIN_LED, LOW);
-  }
+  digitalWrite(LED, HIGH);
+  digitalWrite(LED_2, LOW);
+  delay(500);
+  digitalWrite(LED, LOW);
+  digitalWrite(LED_2, HIGH);
+  delay(500);
 }

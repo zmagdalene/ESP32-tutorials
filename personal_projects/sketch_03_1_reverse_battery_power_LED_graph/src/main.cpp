@@ -1,21 +1,30 @@
 #include <Arduino.h>
 
-#define LED 33
-#define LED_2 13
+byte ledPins[] = {15, 2, 0, 4, 5, 18, 19, 21, 22, 23};
+int ledCount;
 
 void setup()
 {
-  // put your setup code here, to run once:
-  pinMode(LED, OUTPUT);
-  pinMode(LED_2, OUTPUT);
+  ledCount = sizeof(ledPins);
+  for (int i = 0; i < ledCount; i++)
+  {
+    pinMode(ledPins[i], OUTPUT);
+  }
 }
 
 void loop()
 {
-  digitalWrite(LED, HIGH);
-  digitalWrite(LED_2, LOW);
-  delay(500);
-  digitalWrite(LED, LOW);
-  digitalWrite(LED_2, HIGH);
-  delay(500);
+  for (int i = 0; i < ledCount; i++)
+  {
+    digitalWrite(ledPins[i], HIGH);
+    delay(100);
+    digitalWrite(ledPins[i], LOW);
+  }
+
+  for (int i = ledCount - 1; i > 0; i--)
+  {
+    digitalWrite(ledPins[i], HIGH);
+    delay(100);
+    digitalWrite(ledPins[i], LOW);
+  }
 }

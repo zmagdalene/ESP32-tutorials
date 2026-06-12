@@ -1,21 +1,48 @@
 #include <Arduino.h>
 
-#define LED 33
-#define LED_2 13
+#define BUTTON_1 14
+#define BUTTON_2 12
+byte ledPins[] = {15, 2, 0, 4, 5, 18, 19, 21, 22, 23};
+int ledCount;
 
 void setup()
 {
-  // put your setup code here, to run once:
-  pinMode(LED, OUTPUT);
-  pinMode(LED_2, OUTPUT);
+  pinMode(BUTTON_1, INPUT_PULLUP);
+  pinMode(BUTTON_2, INPUT_PULLUP);
+
+  ledCount = sizeof(ledPins);
+  for (int i = 0; i < ledCount; i++)
+  {
+    pinMode(ledPins[i], OUTPUT);
+  }
 }
 
 void loop()
 {
-  digitalWrite(LED, HIGH);
-  digitalWrite(LED_2, LOW);
-  delay(500);
-  digitalWrite(LED, LOW);
-  digitalWrite(LED_2, HIGH);
-  delay(500);
+  if (digitalRead(BUTTON_1) == LOW)
+  {
+    delay(20);
+    for (int i = 0; i < ledCount; i++)
+    {
+      digitalWrite(ledPins[i], HIGH);
+      delay(100);
+      digitalWrite(ledPins[i], LOW);
+    }
+    while (digitalRead(BUTTON_1) == LOW)
+      ;
+    delay(20);
+  }
+  if (digitalRead(BUTTON_2) == LOW)
+  {
+    delay(20);
+    for (int i = ledCount - 1; i > -1; i--)
+    {
+      digitalWrite(ledPins[i], HIGH);
+      delay(100);
+      digitalWrite(ledPins[i], LOW);
+    }
+    while (digitalRead(BUTTON_2) == LOW)
+      ;
+    delay(20);
+  }
 }
